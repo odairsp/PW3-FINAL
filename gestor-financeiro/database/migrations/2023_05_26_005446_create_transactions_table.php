@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->boolean('is_spent');
             $table->decimal('value');
-            $table->foreignId('user_id');
             $table->timestamps();
             
         });
