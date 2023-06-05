@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('category');
-            $table->boolean('is_spent');
+            $table->foreignId('category_id');
+            $table->string('name');
             $table->boolean('recurrent');
+            $table->boolean('is_spent');
             $table->decimal('value');
+            $table->date('date');
             $table->timestamps();
-            
         });
     }
 
