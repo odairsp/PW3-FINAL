@@ -45,20 +45,20 @@
                                         <tbody>
                                             <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
                                                 <td class="whitespace-nowrap px-6 py-4">
-                                                    <select name="" id="">
+                                                    <select name="category" id="category">
                                                         @foreach ($categories as $category)
                                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
                                                 <td class="whitespace-nowrap px-6 py-4">
-                                                    <input type="text" name="" id="">
+                                                    <input type="text" name="name" id="">
                                                 </td>
                                                 <td class="whitespace-nowrap px-6 py-4">
-                                                    <input type="text" name="" id="">
+                                                    <input type="text" name="value" id="">
                                                 </td>
                                                 <td class="whitespace-nowrap px-6 py-4">
-                                                    <input type="date" name="" id="">
+                                                    <input type="date" name="date" id="">
                                                 </td>
                                                 <td class="whitespace-nowrap px-6 py-4">
                                                     <div>
@@ -66,10 +66,10 @@
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Salvar
                                                         </button>
-                                                        <button
+                                                        <a href="{{route('transactions.index')}}"
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Cancelar
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::all()->sortBy('name');
         return view('categories.create', ['categories' => $categories]);
     }
 
@@ -33,8 +33,8 @@ class CategoryController extends Controller
         $category->name = ucwords($request->name);
         $category->description = ($request->description);
         $category->save();
-        
-        return redirect('categories/create')->with('msg', 'Categoria - ' . $category->name . ', adicionada com sucesso!');
+
+        return redirect('categories/create')->with('msg', 'Categoria - "' . $category->name . '", adicionada com sucesso!');
     }
 
     /**s

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('category_id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->boolean('recurrent');
             $table->boolean('is_spent');
             $table->decimal('value');
