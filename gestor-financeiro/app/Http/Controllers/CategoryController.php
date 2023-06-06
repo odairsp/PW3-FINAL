@@ -29,15 +29,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->name = ucwords($request->name);
+        $category->description = ($request->description);
+        $category->save();
+        
+        return redirect('categories/create')->with('msg', 'Categoria - ' . $category->name . ', adicionada com sucesso!');
     }
 
-    /**
+    /**s
      * Display the specified resource.
      */
     public function show(Category $category)
     {
-        return view('categories.show');
+
+        return view('categories.show', ['category' => $category]);
     }
 
     /**

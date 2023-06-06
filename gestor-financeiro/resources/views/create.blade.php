@@ -22,6 +22,10 @@
 
                     </div>
                 </div>
+                @if (session('msg'))
+                <div class="bg-green-300 text-white font-bold text-center">{{session('msg')}}</div>
+                @endif
+
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex flex-col  overflow-x-hidden">
                         <div class="sm:-mx-6 lg:-mx-8">

@@ -22,6 +22,9 @@
 
                     </div>
                 </div>
+                @if (session('msg'))
+                <div class="bg-green-300 text-black font-bold text-center">{{session('msg')}}</div>
+                @endif
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex flex-col  overflow-x-hidden">
                         <div class="sm:-mx-6 lg:-mx-8">
@@ -37,34 +40,41 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                    <input type="text" name="" id="">
-                                                </td>
-                                                <td class="whitespace-nowrap max-w-full px-6 py-4">
-                                                    <input type="text" name="" id="">
-                                                </td>
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                    <a href=""
-                                                        class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">Salvar</a>
-                                                    <a href=""
-                                                        class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">Cancelar</a>
-                                                </td>
-                                            </tr>
+                                            <form action="{{route('categories.store')}}" method="POST">
+                                                @csrf
+                                                <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
+
+                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                        <input type="text" name="name" id="" required>
+                                                    </td>
+                                                    <td class="whitespace-wrap max-w-full px-6 py-4">
+                                                        <input type="text" name="description" id="" required
+                                                            class="w-full whitespace-wrap">
+                                                    </td>
+                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                        <button type="submit"
+                                                            class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">Salvar</button>
+                                                        <a href=""
+                                                            class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">Cancelar</a>
+                                                    </td>
+                                                </tr>
+                                            </form>
                                         </tbody>
                                         <tbody>
                                             @foreach ($categories as $category)
                                             <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                    {{$category->name}}
-                                                </td>
-                                                <td class="whitespace-wrap px-6 py-4">
-                                                    {{$category->description}}
-                                                </td>
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                    <a href="{{route('categories.edit',$category->id)}}"
-                                                        class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">Editar</a>
-                                                </td>
+                                                <form action="{{route('categories.edit',$category->id)}}" method="GET">
+                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                        <p>{{$category->name}}</p>
+                                                    </td>
+                                                    <td class="whitespace-wrap px-6 py-4">
+                                                        <p>{{$category->description}}</p>
+                                                    </td>
+                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                        <button type="submit"
+                                                            class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">Editar</button>
+                                                    </td>
+                                                </form>
                                             </tr>
                                             @endforeach
 
