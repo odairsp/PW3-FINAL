@@ -54,7 +54,7 @@
                                                     <td class="whitespace-nowrap px-6 py-4">
                                                         <button type="submit"
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">Salvar</button>
-                                                        <a href=""
+                                                        <a href="{{route('transactions.create')}}"
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">Cancelar</a>
                                                     </td>
                                                 </tr>
@@ -63,7 +63,7 @@
                                         <tbody>
                                             @foreach ($categories as $category)
                                             <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
-                                                <form action="{{route('categories.edit',$category->id)}}" method="GET">
+                                                <form action="{{route('categories.edit',$category)}}" method="GET">
                                                     <td class="whitespace-nowrap px-6 py-4">
                                                         <p>{{$category->name}}</p>
                                                     </td>

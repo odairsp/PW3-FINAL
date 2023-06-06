@@ -42,8 +42,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-
-        return view('categories.show', ['category' => $category]);
+        $categories = Category::all()->sortBy('name');
+        return view('categories.show', ['category' => $category, 'categories' => $categories]);
     }
 
     /**
@@ -51,7 +51,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('categories.edit');
+
+        $categories = Category::all()->sortBy('name');
+        return view('categories.edit', ['category' => $category, 'categories' => $categories]);
     }
 
     /**
@@ -59,7 +61,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->save();
+
+        return redirect('categories/create')->with('msg', 'Categoria - "' . $category->name . '", editada com sucesso!');
     }
 
     /**
@@ -67,6 +73,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->destroy($category->id);
+        
+        return redirect('categories/create')->with('msg', 'Categoria - "' . $category->name . '", editada com sucesso!');
     }
 }
