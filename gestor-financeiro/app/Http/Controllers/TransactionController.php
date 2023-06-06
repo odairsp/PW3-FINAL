@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,7 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Transaction::whereBelongsTo(Auth::user())->orderBy('date')->get();
-        return view('dashboard', ['transactions'=> $transactions]);
+        return view('dashboard', ['transactions' => $transactions]);
     }
 
     /**
@@ -22,7 +23,8 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('create', ['categories' => $categories]);
     }
 
     /**

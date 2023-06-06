@@ -8,16 +8,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="grid grid-cols-8 gap-4">
+                <div class="grid grid-cols-6 gap-4">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         {{ __('Transações') }}
 
                     </div>
                     <div class="flex">
-                        <button
-                            class="shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded h-8 self-center">
+
+                        <a href="{{route('transactions.create')}}"
+                            class="min-w-max shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded h-8 self-center">
                             {{ __('Nova Transação') }}
-                        </button>
+                        </a>
+
                     </div>
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -37,8 +39,8 @@
 
                                             </tr>
                                         </thead>
-
-                                        @foreach ($transactions as $transaction)
+                                        <tbody>
+                                            @foreach ($transactions as $transaction)
                                             <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
                                                 <td class="whitespace-nowrap px-6 py-4">
                                                     {{ date('d/m/Y', strtotime($transaction->date)) }}</td>
@@ -64,8 +66,8 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
-
+                                            @endforeach
+                                        </tbody>
                                     </table>
 
                                 </div>
