@@ -6,6 +6,6 @@
 
 
 </svg> --}}
-<div class="w-72">
+<div class="fill">
     <img src="/img/Currency1.jpg">
 </div>
