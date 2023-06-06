@@ -23,8 +23,9 @@ class TransactionController extends Controller
      */
     public function create()
     {
+        $transactions = Transaction::whereBelongsTo(Auth::user())->orderBy('date')->get();
         $categories = Category::all();
-        return view('create', ['categories' => $categories]);
+        return view('create', ['transactions' => $transactions, 'categories' => $categories]);
     }
 
     /**

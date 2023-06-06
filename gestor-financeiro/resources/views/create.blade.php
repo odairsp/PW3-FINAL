@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Nova Transação') }}
         </h2>
     </x-slot>
 
@@ -36,7 +36,6 @@
                                                 <th scope="col" class="px-6 py-4">Valor</th>
                                                 <th scope="col" class="px-6 py-4">Data</th>
                                                 <th scope="col" class="px-7 py-4">Ações</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -47,7 +46,6 @@
                                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                                         @endforeach
                                                     </select>
-
                                                 </td>
                                                 <td class="whitespace-nowrap px-6 py-4">
                                                     <input type="text" name="" id="">
@@ -72,9 +70,34 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-
-
-
+                                        <tbody>
+                                            @foreach ($transactions as $transaction)
+                                            <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
+                                                <td class="whitespace-nowrap px-6 py-4">
+                                                    {{ $transaction->category->name }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">{{ $transaction->name }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">
+                                                    {{ str_replace('.', ',', $transaction->value) }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">
+                                                    {{ date('d/m/Y', strtotime($transaction->date)) }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">
+                                                    <div class="inline-flex ">
+                                                        <form action="}" method="GET">
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="shadow-black shadow-sm bg-yellow-600 hover:bg-yellow-800 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                                Editar
+                                                            </button>
+                                                        </form>
+                                                        <button
+                                                            class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                            Deletar
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
                                     </table>
 
                                 </div>
