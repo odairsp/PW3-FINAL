@@ -17,9 +17,15 @@ class DatabaseSeeder extends Seeder
         \App\Models\Transaction::factory(100)->create();
         
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\Category::factory()->create([
+            
+                'name' => "Alimentação",
+                'description' => "Consumo etc...",
+            ]);
+            \App\Models\Category::factory()->create([
+            
+                'name' => "Transporte",
+                'description' => "Gas e uber",
+            ]);
     }
 }
