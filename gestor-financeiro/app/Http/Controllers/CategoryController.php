@@ -73,8 +73,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->destroy($category->id);
-        
-        return redirect('categories/create')->with('msg', 'Categoria - "' . $category->name . '", editada com sucesso!');
+        $category->delete();
+
+        return redirect('categories/create')->with('msg', 'Categoria - "' . $category->name . '", excluida com sucesso!');
     }
 }

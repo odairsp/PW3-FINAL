@@ -56,11 +56,11 @@
                                                     </td>
                                                     <td class="whitespace-nowrap px-6 py-4">
                                                         <button type="submit"
-                                                            class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                            class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Salvar
                                                         </button>
                                                         <a href="{{route('transactions.create')}}"
-                                                            class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                            class="shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Cancelar
                                                         </a>
                                                     </td>
@@ -70,24 +70,36 @@
                                         <tbody>
                                             @foreach ($categories as $category)
                                             <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
-                                                <form action="{{route('categories.edit',$category->id)}}" method="GET">
+
+                                                <form action="{{route('categories.edit', $category)}}" method="GET"
+                                                    id="form-edit" name="form-edit">
                                                     <td class="whitespace-nowrap px-6 py-4">
                                                         <p>{{$category->name}}</p>
                                                     </td>
                                                     <td class="whitespace-wrap px-6 py-4">
                                                         <p>{{$category->description}}</p>
                                                     </td>
-                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                </form>
+                                                
+                                                <td class="flex flex-row px-6 py-4">
+                                                    <button type="submit" form="form-edit"
+                                                        class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                        Editar
+                                                    </button>
+
+
+                                                    <form action="{{route('categories.destroy', $category)}}"
+                                                        class="m-0 p-0 flex" method="POST">
+                                                        @method('delete')
+                                                        @csrf
                                                         <button type="submit"
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
-                                                            Editar
+
+                                                            Deletar de
                                                         </button>
-                                                        <a href="{{route('categories.destroy',$category)}}"
-                                                            class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
-                                                            Deletar
-                                                        </a>
-                                                    </td>
-                                                </form>
+                                                    </form>
+                                                </td>
+
                                             </tr>
                                             @endforeach
 
