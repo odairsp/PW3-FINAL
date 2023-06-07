@@ -51,7 +51,7 @@
                                                     {{ str_replace('.', ',', $transaction->value) }}</td>
                                                 <td class="whitespace-nowrap px-6 py-4">
                                                     <div class="inline-flex ">
-                                                        <form action="}" method="GET">
+                                                        <form action="" method="GET">
                                                             @csrf
                                                             <button type="submit"
                                                                 class="shadow-black shadow-sm bg-yellow-600 hover:bg-yellow-800 text-white text-xs mx-1 py-2 px-3 rounded">

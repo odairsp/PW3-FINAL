@@ -40,7 +40,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <form action="{{route('categories.store')}}" method="POST">
+                                            <form action="/categories" method="POST">
                                                 @csrf
                                                 <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
 
@@ -63,7 +63,7 @@
                                         <tbody>
                                             @foreach ($categories as $category)
                                             <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
-                                                <form action="{{route('categories.edit',$category)}}" method="GET">
+                                                <form action="{{route('categories.edit', $category)}}" method="GET">
                                                     <td class="whitespace-nowrap px-6 py-4">
                                                         <p>{{$category->name}}</p>
                                                     </td>
