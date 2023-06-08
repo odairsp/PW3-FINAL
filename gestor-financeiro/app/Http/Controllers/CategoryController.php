@@ -51,7 +51,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-
+        
         $categories = Category::all()->sortBy('name');
         return view('categories.edit', ['category' => $category, 'categories' => $categories]);
     }

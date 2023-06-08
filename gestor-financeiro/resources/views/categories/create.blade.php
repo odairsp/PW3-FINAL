@@ -77,19 +77,19 @@
                                                 <td class="flex flex-row px-6 py-4">
                                                     <button type="submit" form="form-edit"
                                                         class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
-                                                        Editar
+                                                        {{$category->id}} - Editar
                                                     </button>
 
 
 
                                                     <form action="{{route('categories.destroy', $category)}}"
-                                                        class="m-0 p-0 flex" method="POST">
+                                                       id="form-delete" name="form-delete" class="m-0 p-0 flex" method="POST">
                                                         @method('delete')
                                                         @csrf
-                                                        <button
+                                                        <button form="form-delete"
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
 
-                                                            Deletar
+                                                            Deletar create
                                                         </button>
                                                     </form>
                                                 </td>

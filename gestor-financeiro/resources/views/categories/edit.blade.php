@@ -59,7 +59,7 @@
                                                             class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Salvar
                                                         </button>
-                                                        <a href="{{route('transactions.create')}}"
+                                                        <a href="{{route('categories.create')}}"
                                                             class="shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Cancelar
                                                         </a>
@@ -95,7 +95,7 @@
                                                         <button type="submit"
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
 
-                                                            Deletar de
+                                                            Deletar edit
                                                         </button>
                                                     </form>
                                                 </td>
