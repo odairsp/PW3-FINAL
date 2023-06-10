@@ -74,11 +74,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        dd(Transaction::whereBelongsTo($category)->get());
 
-        if (Transaction::whereBelongsTo($category)->get()) {
-            return redirect('categories/create')->with('alert', 'Categoria - "' . $category->name . '", Não é possivel deletar categoria vinculada a transação!');
-        }
+        // if (Transaction::whereBelongsTo($category)->get()) {
+        //     return redirect('categories/create')->with('alert', 'Categoria - "' . $category->name . '", Não é possivel deletar categoria vinculada a transação!');
+        // }
 
         $category->delete();
 

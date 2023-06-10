@@ -71,8 +71,7 @@
                                             @foreach ($categories as $category)
                                             <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
 
-                                                <form action="{{route('categories.edit', $category)}}" method="GET"
-                                                    id="form-edit" name="form-edit">
+                                                <form id="form-edit" name="form-edit">
                                                     <td class="whitespace-nowrap px-6 py-4">
                                                         <p>{{$category->name}}</p>
                                                     </td>
@@ -82,7 +81,8 @@
                                                 </form>
 
                                                 <td class="flex flex-row px-6 py-4">
-                                                    <button type="submit" form="form-edit"
+                                                    <button type="submit" form="form-edit" formmethod="GET"
+                                                        formaction="{{route('categories.edit', $category)}}"
                                                         class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                         Editar
                                                     </button>
