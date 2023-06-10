@@ -25,6 +25,9 @@
                 @if (session('msg'))
                 <div class="bg-green-300 text-black font-bold text-center">{{session('msg')}}</div>
                 @endif
+                @if (session('alert'))
+                <div class="bg-yellow-300 text-black font-bold text-center">{{session('alert')}}</div>
+                @endif
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex flex-col  overflow-x-hidden">
                         <div class="sm:-mx-6 lg:-mx-8">
@@ -53,9 +56,13 @@
                                                     </td>
                                                     <td class="whitespace-nowrap px-6 py-4">
                                                         <button type="submit"
-                                                            class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">Salvar</button>
+                                                            class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                            Salvar
+                                                        </button>
                                                         <a href="{{route('transactions.create')}}"
-                                                            class="shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded">Cancelar</a>
+                                                            class="shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                            Cancelar
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             </form>
@@ -64,7 +71,8 @@
                                             @foreach ($categories as $category)
                                             <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
 
-                                                <form id="form-edit" name="form-edit">
+                                                <form action="{{route('categories.edit', $category)}}" method="GET"
+                                                    id="form-edit" name="form-edit">
                                                     <td class="whitespace-nowrap px-6 py-4">
                                                         <p>{{$category->name}}</p>
                                                     </td>
@@ -74,24 +82,25 @@
                                                 </form>
 
                                                 <td class="flex flex-row px-6 py-4">
-                                                    <button type="submit" form="form-edit" formmethod="GET"
-                                                        formaction="{{route('categories.edit', $category)}}"
+                                                    <button type="submit" form="form-edit"
                                                         class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                         Editar
                                                     </button>
 
+
                                                     <form action="{{route('categories.destroy', $category)}}"
-                                                        id="form-delete" name="form-delete" class="m-0 p-0 flex"
-                                                        method="POST">
+                                                        class="m-0 p-0 flex" method="POST">
                                                         @method('delete')
                                                         @csrf
-                                                        <button form="form-delete"
+                                                        <button type="submit"
+                                                            onclick="if(confirm('Deseja realmente excluir?')){if(confirm('Tem certeza?')){}else{return false;}}else{return false;}"
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
 
                                                             Deletar
                                                         </button>
                                                     </form>
                                                 </td>
+
                                             </tr>
                                             @endforeach
 

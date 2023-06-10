@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -51,7 +52,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        
+
         $categories = Category::all()->sortBy('name');
         return view('categories.edit', ['category' => $category, 'categories' => $categories]);
     }
@@ -73,6 +74,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        dd(Transaction::whereBelongsTo($category)->get());
+
+        if (Transaction::whereBelongsTo($category)->get()) {
+            return redirect('categories/create')->with('alert', 'Categoria - "' . $category->name . '", Não é possivel deletar categoria vinculada a transação!');
+        }
+
         $category->delete();
 
         return redirect('categories/create')->with('msg', 'Categoria - "' . $category->name . '", excluida com sucesso!');

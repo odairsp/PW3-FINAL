@@ -93,6 +93,7 @@
                                                         @method('delete')
                                                         @csrf
                                                         <button type="submit"
+                                                            onclick="if(confirm('Deseja realmente excluir?')){if(confirm('Tem certeza?')){}else{return false;}}else{return false;}"
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
 
                                                             Deletar

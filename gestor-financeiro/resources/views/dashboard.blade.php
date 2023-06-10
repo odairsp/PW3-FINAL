@@ -45,7 +45,7 @@
                                                 <td class="whitespace-nowrap px-6 py-4">
                                                     {{ date('d/m/Y', strtotime($transaction->date)) }}</td>
                                                 <td class="whitespace-nowrap px-6 py-4">
-                                                    {{ $transaction->category->name }}</td>
+                                                    {{ $transaction->category->name}}</td>
                                                 <td class="whitespace-nowrap px-6 py-4">{{ $transaction->name }}</td>
                                                 <td class="whitespace-nowrap px-6 py-4">
                                                     {{ str_replace('.', ',', $transaction->value) }}</td>
