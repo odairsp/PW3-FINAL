@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="grid grid-cols-6 gap-4">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        {{ __('Transações') }}
+                        {{ __('Criar Transação') }}
 
                     </div>
                     <div class="flex">
@@ -27,42 +27,59 @@
                 @endif
 
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="flex flex-col  overflow-x-hidden">
+                    <div class="flex flex-col overflow-x-hidden">
                         <div class="sm:-mx-6 lg:-mx-8">
                             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                                 <div class="overflow-x-auto">
 
-                                    <table class=" min-w-full text-left text-sm font-light">
-                                        <thead class="border-b font-medium dark:border-neutral-500">
-                                            <tr class="bg-slate-200">
+                                    <table class="text-left text-sm font-light">
+                                        <thead class=" border-b font-medium dark:border-neutral-500">
+                                            <tr class="bg-slate-200 ">
                                                 <th scope="col" class="px-6 py-4">Categoria</th>
                                                 <th scope="col" class="px-6 py-4">Nome</th>
                                                 <th scope="col" class="px-6 py-4">Valor</th>
                                                 <th scope="col" class="px-6 py-4">Data</th>
-                                                <th scope="col" class="px-7 py-4">Ações</th>
+                                                <th scope="col" class="px-6 py-4">Ações</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                    <select name="category" id="category">
-                                                        @foreach ($categories as $category)
-                                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                    <input type="text" name="name" id="">
-                                                </td>
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                    <input type="text" name="value" id="">
-                                                </td>
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                    <input type="date" name="date" id="">
-                                                </td>
+
+                                                <form id="form-create" name="form-create">
+                                                    @csrf
+                                                    <div class="m-3 mt-0 text-gray-900 dark:text-gray-100">
+                                                        <input name="recurrent"  type="checkbox" checked>
+                                                        {{__(' Recorrente')}}
+
+                                                        <input name="is_spent" type="checkbox" checked>
+                                                        {{__(' Débito')}}
+                                                    </div>
+                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                        <select name="category" id="category">
+                                                            @foreach ($categories as $category)
+                                                            <option value="{{$category->id}}">{{$category->name}}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+
+                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                        <input type="hidden" name="user_id"
+                                                            value="{{Auth::user()->id}}">
+                                                        <input type="text" name="name" id="" required>
+                                                    </td>
+                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                        <input type="number" name="value" id="" required>
+                                                    </td>
+                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                        <input type="date" name="date" id="" required>
+                                                    </td>
+
+                                                </form>
                                                 <td class="whitespace-nowrap px-6 py-4">
                                                     <div>
-                                                        <button
+                                                        <button type="submit" form="form-create" formmethod="POST"
+                                                            formaction="{{route('transactions.store')}}"
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Salvar
                                                         </button>
@@ -71,6 +88,7 @@
                                                             Cancelar
                                                         </a>
                                                     </div>
+
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -84,6 +102,7 @@
                                                     {{ str_replace('.', ',', $transaction->value) }}</td>
                                                 <td class="whitespace-nowrap px-6 py-4">
                                                     {{ date('d/m/Y', strtotime($transaction->date)) }}</td>
+
                                                 <td class="whitespace-nowrap px-6 py-4">
                                                     <div class="inline-flex ">
                                                         <form action="" method="GET">
@@ -94,6 +113,7 @@
                                                             </button>
                                                         </form>
                                                         <button
+                                                            onclick="if(confirm('Deseja realmente excluir?')){if(confirm('Tem certeza?')){}else{return false;}}else{return false;}"
                                                             class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Deletar
                                                         </button>

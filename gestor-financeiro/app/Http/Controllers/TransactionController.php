@@ -23,7 +23,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $transactions = Transaction::whereBelongsTo(Auth::user())->orderBy('date')->get();
+        $transactions = Transaction::whereBelongsTo(Auth::user())->orderBy('name')->get();
         $categories = Category::all()->sortBy('name');
         return view('create', ['transactions' => $transactions, 'categories' => $categories]);
     }
@@ -33,7 +33,30 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $transaction = new Transaction();
+        $transaction->user_id = $request->user_id;
+        $transaction->category_id = $request->category;
+        $transaction->name = $request->name;
+
+        if ($request->recurrent) {
+            $transaction->recurrent = 1;
+        } else {
+            $transaction->recurrent = 0;
+        }
+        if ($request->is_spent) {
+            $transaction->is_spent = 1;
+            $transaction->value = $request->value * -1;
+        } else {
+            $transaction->is_spent = 0;
+            $transaction->value = $request->value;
+        }
+
+        $transaction->date = $request->date;
+        $transaction->name = $request->name;
+        $transaction->save();
+
+        return redirect(route('transactions.create'));
     }
 
     /**
@@ -49,7 +72,9 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        $transactions = Transaction::whereBelongsTo(Auth::user())->orderBy('date')->get();
+        $categories = Category::all()->sortBy('name');
+        return view('edit', ['transactions' => $transactions, 'categories' => $categories, 'transaction' => $transaction]);
     }
 
     /**
