@@ -53,10 +53,9 @@ class TransactionController extends Controller
         }
 
         $transaction->date = $request->date;
-        $transaction->name = $request->name;
         $transaction->save();
 
-        return redirect(route('transactions.create'));
+        return redirect(route('transactions/create'));
     }
 
     /**
@@ -82,7 +81,32 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $transaction->category_id = $request->category;
+        $transaction->name = $request->name;
+        if ($request->recurrent) {
+            $transaction->recurrent = 1;
+        } else {
+            $transaction->recurrent = 0;
+        }
+        if ($request->is_spent) {
+            $transaction->is_spent = 1;
+            if ($request->value > 0) {
+                $transaction->value = $request->value * -1;
+            }else{
+                $transaction->value = $request->value;
+            }
+
+        } else {
+            $transaction->is_spent = 0;
+            if ($request->value < 0) {
+                $transaction->value = $request->value * -1;
+            }else{
+                $transaction->value = $request->value;
+            }
+        }
+        $transaction->date = $request->date;
+        $transaction->save();
+        return redirect('transactions/create')->with('msg', 'Transação "' . $transaction->name . '", alterada com sucesso!');
     }
 
     /**
@@ -90,6 +114,9 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+        
+        return redirect('transactions/create')->with('msg', 'Transação - "' . $transaction->name . '", excluida com sucesso!');
+
     }
 }

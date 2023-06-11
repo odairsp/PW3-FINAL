@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 @if (session('msg'))
-                <div class="bg-green-300 text-white font-bold text-center">{{session('msg')}}</div>
+                <div class="bg-green-300 text-black font-bold text-center">{{session('msg')}}</div>
                 @endif
 
                 <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -45,8 +45,22 @@
                                         <tbody>
                                             <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
                                                 <form id="form-create">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <div class="m-3 mt-0 text-gray-900 dark:text-gray-100">
+                                                        <input name="recurrent" type="checkbox" checked
+                                                            class="checked:bg-green-700 checked:hover:bg-green-900 rounded">
+                                                        {{__(' Recorrente')}}
+
+                                                        <input name="is_spent" type="checkbox" checked
+                                                            class="ms-3 rounded checked:bg-green-700 checked:hover:bg-green-900 enabled:outiline-green-950">
+                                                        {{__(' Débito')}}
+                                                    </div>
                                                     <td class="whitespace-nowrap px-6 py-4">
                                                         <select name="category" id="category">
+                                                            <option value="{{$transaction->category->id}}">
+                                                                {{$transaction->category->name}}
+                                                            </option>
                                                             @foreach ($categories as $category)
                                                             <option value="{{$category->id}}">{{$category->name}}
                                                             </option>
@@ -54,23 +68,28 @@
                                                         </select>
                                                     </td>
                                                     <td class="whitespace-nowrap px-6 py-4">
-                                                        <input type="text" name="name" id="">
+                                                        <input type="text" name="name" id=""
+                                                            value="{{$transaction->name}}">
                                                     </td>
                                                     <td class="whitespace-nowrap px-6 py-4">
-                                                        <input type="text" name="value" id="">
+                                                        <input type="text" name="value" id=""
+                                                            value="{{$transaction->value}}">
                                                     </td>
                                                     <td class="whitespace-nowrap px-6 py-4">
-                                                        <input type="date" name="date" id="">
+                                                        <input type="date" name="date" id=""
+                                                            value="{{$transaction->date}}">
                                                     </td>
                                                 </form>
                                                 <td class="whitespace-nowrap px-6 py-4">
                                                     <div>
-                                                        <button form="form-create" formmethod="POST" formaction="{{route('transactions.store')}}"
-                                                            class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                        <button form="form-create" formmethod="POST"
+                                                            formaction="{{route('transactions.update', $transaction)}}"
+                                                            class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
+
                                                             Salvar
                                                         </button>
                                                         <a href="{{route('transactions.index')}}"
-                                                            class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                            class="shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Cancelar
                                                         </a>
                                                     </div>
@@ -92,15 +111,20 @@
                                                         <form action="" method="GET">
                                                             @csrf
                                                             <button type="submit"
-                                                                class="shadow-black shadow-sm bg-yellow-600 hover:bg-yellow-800 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                                class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                                 Editar
                                                             </button>
                                                         </form>
-                                                        <button
-                                                            onclick="if(confirm('Deseja realmente excluir?')){if(confirm('Tem certeza?')){}else{return false;}}else{return false;}"
-                                                            class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
-                                                            Deletar
-                                                        </button>
+                                                        <form action="{{route('transactions.destroy',$transaction)}}"
+                                                            method="POST">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button type="submit"
+                                                                onclick="if(confirm('Deseja realmente excluir?')){if(confirm('Tem certeza?')){}else{return false;}}else{return false;}"
+                                                                class="shadow-black shadow-sm bg-red-700 hover:bg-red-900 text-white text-xs mx-1 py-2 px-3 rounded">
+                                                                Deletar
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
