@@ -32,18 +32,18 @@
                             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                                 <div class="overflow-x-auto">
 
-                                    <table class="text-left text-sm font-light">
-                                        <thead class=" border-b font-medium dark:border-neutral-500">
-                                            <tr class="bg-slate-200 ">
-                                                <th scope="col" class="px-6 py-4">Categoria</th>
-                                                <th scope="col" class="px-6 py-4">Nome</th>
-                                                <th scope="col" class="px-6 py-4">Valor</th>
-                                                <th scope="col" class="px-6 py-4">Data</th>
-                                                <th scope="col" class="px-6 py-4">Ações</th>
+                                    <table class="table w-ful text-left text-sm font-light">
+                                        <thead class="table-header-group border-b font-medium dark:border-neutral-500">
+                                            <tr class="table-row bg-slate-200 ">
+                                                <th class="table-cell px-6 py-4">Categoria</th>
+                                                <th class="table-cell px-6 py-4">Nome</th>
+                                                <th class="table-cell px-6 py-4">Valor</th>
+                                                <th class="table-cell px-6 py-4">Data</th>
+                                                <th class="table-cell px-6 py-4">Ações</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
+                                        <tbody class="table-row-group">
+                                            <tr class="table-row border-b dark:border-neutral-500 hover:bg-neutral-100">
 
                                                 <form id="form-create" name="form-create">
                                                     @csrf
@@ -56,7 +56,7 @@
                                                             class="ms-3 rounded checked:bg-green-700 checked:hover:bg-green-900 enabled:outiline-green-950">
                                                         {{__(' Débito')}}
                                                     </div>
-                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                    <td class="table-cell px-6 py-4">
                                                         <select name="category" id="category">
                                                             @foreach ($categories as $category)
                                                             <option value="{{$category->id}}">{{$category->name}}
@@ -65,21 +65,20 @@
                                                         </select>
                                                     </td>
 
-                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                    <td class="table-cell px-6 py-4">
                                                         <input type="hidden" name="user_id"
                                                             value="{{Auth::user()->id}}">
                                                         <input type="text" name="name" id="" required>
                                                     </td>
-                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                    <td class="table-cell px-6 py-4">
                                                         <input type="number" name="value" id="" required>
                                                     </td>
-                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                    <td class="table-cell px-6 py-4">
                                                         <input type="date" name="date" id="" required>
                                                     </td>
 
                                                 </form>
-                                                <td class="whitespace-nowrap px-6 py-4">
-                                                    <div>
+                                                <td class="flex flex-row px-6 py-4">
                                                         <button type="submit" form="form-create" formmethod="POST"
                                                             formaction="{{route('transactions.store')}}"
                                                             class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
@@ -89,23 +88,22 @@
                                                             class="shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Cancelar
                                                         </a>
-                                                    </div>
 
                                                 </td>
                                             </tr>
                                         </tbody>
-                                        <tbody>
+                                        <tbody class="table-row-group">
                                             @foreach ($transactions as $transaction)
-                                            <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
-                                                <td class="whitespace-nowrap px-6 py-4">
+                                            <tr class="table-row border-b dark:border-neutral-500 hover:bg-neutral-100">
+                                                <td class="table-cell px-6 py-4">
                                                     {{ $transaction->category->name }}</td>
-                                                <td class="whitespace-nowrap px-6 py-4">{{ $transaction->name }}</td>
-                                                <td class="whitespace-nowrap px-6 py-4">
+                                                <td class="table-cell px-6 py-4">{{ $transaction->name }}</td>
+                                                <td class="table-cell px-6 py-4">
                                                     {{ str_replace('.', ',', $transaction->value) }}</td>
-                                                <td class="whitespace-nowrap px-6 py-4">
+                                                <td class="table-cell px-6 py-4">
                                                     {{ date('d/m/Y', strtotime($transaction->date)) }}</td>
 
-                                                <td class="whitespace-nowrap px-6 py-4">
+                                                <td class="table-cell px-6 py-4">
                                                     <div class="inline-flex ">
                                                         <form action="{{route('transactions.edit', $transaction)}}" method="GET">
                                                             @csrf

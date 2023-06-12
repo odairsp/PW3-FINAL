@@ -31,30 +31,30 @@
                             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                                 <div class="overflow-x-auto">
 
-                                    <table class=" min-w-full text-left text-sm font-light">
-                                        <thead class="border-b font-medium dark:border-neutral-500">
-                                            <tr class="bg-slate-200">
-                                                <th scope="col" class="px-6 py-4">Nome</th>
-                                                <th scope="col" class="px-6 py-4">Descrição</th>
-                                                <th scope="col" class="px-6 py-4">Ações</th>
+                                    <table class="table w-full text-left text-sm font-light">
+                                        <thead class="table-header-group border-b font-medium dark:border-neutral-500">
+                                            <tr class="table-row bg-slate-200">
+                                                <th class="table-cell px-6 py-4">Nome</th>
+                                                <th class="table-cell px-6 py-4">Descrição</th>
+                                                <th class="table-cell px-6 py-4">Ações</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="table-row-group">
                                             <form action="{{route('categories.update', $category)}}" method="POST">
                                                 @csrf
                                                 @method('PUT')
-                                                <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
+                                                <tr
+                                                    class="table-row border-b dark:border-neutral-500 hover:bg-neutral-100">
 
-                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                    <td class="table-cell  px-6 py-4">
                                                         <input type="text" name="name" id="" value="{{$category->name}}"
                                                             required>
                                                     </td>
-                                                    <td class="whitespace-wrap max-w-full px-6 py-4">
+                                                    <td class="table-cell px-6 py-4">
                                                         <input type="text" name="description" id="" required
-                                                            value="{{$category->description}}"
-                                                            class="w-full whitespace-wrap">
+                                                            value="{{$category->description}}" class="w-full ">
                                                     </td>
-                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                    <td class="flex px-6 py-4">
                                                         <button type="submit"
                                                             class="shadow-black shadow-sm bg-yellow-700 hover:bg-yellow-900 text-white text-xs mx-1 py-2 px-3 rounded">
                                                             Salvar
@@ -67,15 +67,15 @@
                                                 </tr>
                                             </form>
                                         </tbody>
-                                        <tbody>
+                                        <tbody class="table-row-group">
                                             @foreach ($categories as $category)
-                                            <tr class="border-b dark:border-neutral-500 hover:bg-neutral-100">
+                                            <tr class="table-row border-b dark:border-neutral-500 hover:bg-neutral-100">
 
                                                 <form id="form-edit" name="form-edit">
-                                                    <td class="whitespace-nowrap px-6 py-4">
+                                                    <td class="table-cell whitespace-nowrap px-6 py-4">
                                                         <p>{{$category->name}}</p>
                                                     </td>
-                                                    <td class="whitespace-wrap px-6 py-4">
+                                                    <td class="table-cell whitespace-wrap px-6 py-4">
                                                         <p>{{$category->description}}</p>
                                                     </td>
                                                 </form>
