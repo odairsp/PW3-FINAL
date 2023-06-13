@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('transactions', TransactionController::class);
     Route::get('/graphs', [GraphController::class, 'index'])->name('graphs.index');
+    Route::post('/graphs/{month}', [GraphController::class, 'month'])->name('graphs.month');
 });
 
 require __DIR__ . '/auth.php';

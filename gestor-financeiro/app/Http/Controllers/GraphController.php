@@ -29,13 +29,14 @@ class GraphController extends Controller
         $values = array_values($categories);
 
 
-
-
-
-
-
-
-
         return view('graph', ['transactions' => $transactions, 'label' => $label, 'values' => $values]);
+    }
+
+    public function month(int $key)
+    {
+
+        $transactions = Transaction::whereBelongsTo(Auth::user())->orderBy('date')->get();
+        dd($transactions);
+        return;
     }
 }
