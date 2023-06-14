@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Graph;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,8 +36,19 @@ class GraphController extends Controller
     public function month(int $key)
     {
 
-        $transactions = Transaction::whereBelongsTo(Auth::user())->orderBy('date')->get();
-        dd($transactions);
+        $transactions = Transaction::whereBelongsTo(Auth::user())->whereMonth('date', Carbon::now()->format('m'))->get()->groupBy(function ($item) {
+            return $item->category->name;
+        });
+        $label = $transactions->keys();
+        $transactions = $transactions->values();
+        $values = array();
+        foreach ($transactions as $transaction) {
+            foreach ($transaction as $item)
+                $values = $item->sum('value');
+        }
+        dd($values);
+
+
         return;
     }
 }
