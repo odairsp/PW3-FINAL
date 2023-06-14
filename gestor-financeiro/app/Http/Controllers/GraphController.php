@@ -39,16 +39,19 @@ class GraphController extends Controller
         $transactions = Transaction::whereBelongsTo(Auth::user())->whereMonth('date', Carbon::now()->format('m'))->get()->groupBy(function ($item) {
             return $item->category->name;
         });
+
+
+
         $label = $transactions->keys();
-        $transactions = $transactions->values();
         $values = array();
+     
         foreach ($transactions as $transaction) {
-            foreach ($transaction as $item)
-                $values = $item->sum('value');
+
+
+            array_push($values, $transaction->sum('value'));
         }
-        dd($values);
 
 
-        return;
+        return view('graph', ['transactions' => $transactions, 'label' => $label, 'values' => $values]);
     }
 }
