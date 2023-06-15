@@ -44,7 +44,7 @@ class GraphController extends Controller
 
         $label = $transactions->keys();
         $values = array();
-     
+
         foreach ($transactions as $transaction) {
 
 

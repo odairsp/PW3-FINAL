@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Gestor Financeiro') }}
@@ -64,13 +65,15 @@
 
     <script>
         const ctx = document.getElementById('myChart');
+        const timeElapsed = Date.now();
+        const today = new Date(timeElapsed);
         const categorias =
             new Chart(ctx, {
                 type: 'bar',
                 data: {
                 labels: {{Js::from($label)}},
                 datasets: [{
-                    label: '# of Votes',
+                    label: today.toLocaleString('default', { month: 'long' }),
                     data: {{Js::from($values)}},
                     borderWidth: 1
                 }]
