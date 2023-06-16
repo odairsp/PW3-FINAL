@@ -54,4 +54,8 @@ class GraphController extends Controller
 
         return view('graph', ['transactions' => $transactions, 'label' => $label, 'values' => $values]);
     }
+
+    public function year(int $key){
+
+    }
 }

@@ -13,20 +13,24 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <a href="{{route('transactions.create')}}">
                             {{ __('Transações') }}</a>
-
                     </div>
 
                     <div class="flex flex-row ">
                         <div class="p-6 flex flex-nowrap">
                             <form action="{{route('graphs.month',5)}}" method="POST">
                                 @csrf
-                                <input type="text" name="" id="">
+                                
+                                <select name="mes" id="mes">
+                                    @for ($i = 1; $i < 12; $i++)
+                                        
+                                    @endfor
+                                </select>
+                                <input type="text" name="mes" id="">
                                 <button type="submit"
                                     class="min-w-max shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded h-8 self-center">
                                     {{ __('Mês Atual') }}
                                 </button>
                             </form>
-
                         </div>
 
                         <div class="p-6 flex flex-nowrap">
@@ -41,7 +45,6 @@
                                 {{ __('Anual') }}
                             </a>
                         </div>
-
                     </div>
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -51,9 +54,8 @@
                                 <div class="overflow-x-auto">
 
                                     <div>
-                                        <canvas id="myChart"></canvas>
+                                        <canvas id="myChart" style="width: 100%; height: 300px;"></canvas>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
