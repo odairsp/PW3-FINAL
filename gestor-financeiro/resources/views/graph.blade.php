@@ -11,40 +11,32 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex flex-row items-center">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <a href="{{route('transactions.create')}}">
+                        <a href="{{route('transactions.index')}}">
                             {{ __('Transações') }}</a>
                     </div>
 
                     <div class="flex flex-row ">
                         <div class="p-6 flex flex-nowrap">
-                            <form action="{{route('graphs.month',5)}}" method="POST">
+                            <form action="{{route('graphs.month')}}" method="POST">
                                 @csrf
-                                
-                                <select name="mes" id="mes">
-                                    @for ($i = 1; $i < 12; $i++)
-                                        
-                                    @endfor
-                                </select>
-                                <input type="text" name="mes" id="">
+
+                                <label for="month"></label>
+                                <input type="month" name="month" id="month" value="{{$dateMin}}">
                                 <button type="submit"
                                     class="min-w-max shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded h-8 self-center">
-                                    {{ __('Mês Atual') }}
+                                    {{ __('Buscar') }}
                                 </button>
                             </form>
                         </div>
 
-                        <div class="p-6 flex flex-nowrap">
-                            <a href="#"
-                                class="min-w-max shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded h-8 self-center">
-                                {{ __('Próximo Mês') }}
-                            </a>
-                        </div>
+
                         <div class="p-6 flex flex-nowrap">
                             <a href="#"
                                 class="min-w-max shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded h-8 self-center">
                                 {{ __('Anual') }}
                             </a>
                         </div>
+
                     </div>
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -69,24 +61,40 @@
         const ctx = document.getElementById('myChart');
         const timeElapsed = Date.now();
         const today = new Date(timeElapsed);
-        const categorias =
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
+        const data = {
                 labels: {{Js::from($label)}},
                 datasets: [{
-                    label: today.toLocaleString('default', { month: 'long' }),
+                    // label: today.toLocaleString('default', { month: 'long' }),
+                    label: "Total por categorias",
                     data: {{Js::from($values)}},
+                    backgroundColor: function(context) {
+                        const value = context.dataset.data[context.dataIndex];
+                        return value >= 0 ? 'blue' : 'red'; 
+                        },
                     borderWidth: 1
                 }]
+            };
+        const options = {
+            scales: {
+                x: {
+                barThickness: 20, // Defina a largura das barras em pixels
+                maxBarThickness: 25, // Defina a largura máxima das barras em pixels (opcional)
+                minBarLength: 2 // Defina o comprimento mínimo das barras em pixels (opcional)
                 },
-                options: {
-                scales: {
-                    y: {
-                    beginAtZero: true
-                    }
+                y: {
+                beginAtZero: true
                 }
-                }
+            }
+        };
+            
+        
+        
+        
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
             });
     </script>
 </x-app-layout>
