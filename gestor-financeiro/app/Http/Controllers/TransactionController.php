@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,28 +35,45 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
 
-        $transaction = new Transaction();
-        $transaction->user_id = $request->user_id;
-        $transaction->category_id = $request->category;
-        $transaction->name = $request->name;
-
         if ($request->recurrent) {
-            $transaction->recurrent = 1;
+            $date = Carbon::parse($request->date);
+            for ($i = 1; $i <= 12; $i++) {
+                $transaction = new Transaction();
+                $transaction->user_id = $request->user_id;
+                $transaction->category_id = $request->category;
+                $transaction->name = $request->name;
+                $transaction->recurrent = 1;
+                if ($request->is_spent) {
+                    $transaction->is_spent = 1;
+                    $transaction->value = $request->value * -1;
+                } else {
+                    $transaction->is_spent = 0;
+                    $transaction->value = $request->value;
+                }
+                $transaction->date = $date;
+                $date = $date->addMonth(1);
+                $transaction->save();
+            }
         } else {
+            $transaction = new Transaction();
+            $transaction->user_id = $request->user_id;
+            $transaction->category_id = $request->category;
+            $transaction->name = $request->name;
             $transaction->recurrent = 0;
-        }
-        if ($request->is_spent) {
-            $transaction->is_spent = 1;
-            $transaction->value = $request->value * -1;
-        } else {
-            $transaction->is_spent = 0;
-            $transaction->value = $request->value;
+            if ($request->is_spent) {
+                $transaction->is_spent = 1;
+                $transaction->value = $request->value * -1;
+            } else {
+                $transaction->is_spent = 0;
+                $transaction->value = $request->value;
+            }
+            $transaction->date = $request->date;
+            $transaction->save();
         }
 
-        $transaction->date = $request->date;
-        $transaction->save();
 
-        return redirect(route('transactions/create'));
+
+        return redirect(route('transactions.create'));
     }
 
     /**
@@ -92,15 +110,14 @@ class TransactionController extends Controller
             $transaction->is_spent = 1;
             if ($request->value > 0) {
                 $transaction->value = $request->value * -1;
-            }else{
+            } else {
                 $transaction->value = $request->value;
             }
-
         } else {
             $transaction->is_spent = 0;
             if ($request->value < 0) {
                 $transaction->value = $request->value * -1;
-            }else{
+            } else {
                 $transaction->value = $request->value;
             }
         }
@@ -115,8 +132,7 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         $transaction->delete();
-        
-        return redirect('transactions/create')->with('msg', 'Transação - "' . $transaction->name . '", excluida com sucesso!');
 
+        return redirect('transactions/create')->with('msg', 'Transação - "' . $transaction->name . '", excluida com sucesso!');
     }
 }
