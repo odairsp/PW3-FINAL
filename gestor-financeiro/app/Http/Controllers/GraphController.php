@@ -25,8 +25,6 @@ class GraphController extends Controller
         foreach ($transactions as $transaction) {
             if (array_key_exists($transaction->category->name, $categories)) {
                 if (array_key_exists('sem categoria', $categories)) {
-                    $count += 1;
-                    // print_r("<pre>{{$count}}</pre>");
                 };
                 $categories[$transaction->category->name] += $transaction->value;
             } else {
@@ -42,11 +40,16 @@ class GraphController extends Controller
 
     public function month(Request $request)
     {
-        dd($request->month);
+        // dd($request->month);
 
-        $transactions = Transaction::whereBelongsTo(Auth::user())->whereMonth('date', Carbon::parse($request->month)->format('Y-m'))->get()->groupBy(function ($item) {
-            return $item->category->name;
-        });
+        $transactions = Transaction::whereBelongsTo(Auth::user())
+            ->whereMonth('date', Carbon::parse($request->month)->format('m'))
+            ->whereYear('date', Carbon::parse($request->month)->format('Y'))
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->category->name;
+            });
+
 
         $dateMin = $request->month;
 
