@@ -30,7 +30,7 @@
                         </div>
 
 
-                        <div class="p-6 flex flex-nowrap">
+                        <div class="p-6 flex flex-nowrap d-none">
                             <a href="#"
                                 class="min-w-max shadow-black shadow-sm bg-green-700 hover:bg-green-900 text-white text-xs mx-1 py-2 px-3 rounded h-8 self-center">
                                 {{ __('Anual') }}
