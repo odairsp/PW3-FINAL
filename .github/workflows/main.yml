@@ -26,11 +26,11 @@ jobs:
           #!/bin/bash
           sudo su 
           echo "Iniciando Pull ..." >> /home/admin/logPullpw3.txt
-          cd /var/www/pw3-final
+          cd /var/www/pw3-final/gestor-financeiro
           date >> /home/admin/logPullpw3.txt
           git pull origin >> /home/admin/logPull.txt
-          chown -R www-data:www-data /var/www/pw3-final
           npm run build
+          chown -R www-data:www-data /var/www/pw3-final
           php artisan optimize
           echo "Finalizado ..." >> /home/admin/logPullpw3.txt
           cat /home/admin/logPullpw3.txt | tail
